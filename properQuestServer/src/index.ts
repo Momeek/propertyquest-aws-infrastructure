@@ -1,32 +1,12 @@
-import http from 'http';
-import { app, EnvSchema } from './app';
-import { normalizePort } from './utils';
-import { createLogger } from './utils/logger';
-import { sequelizeConn } from './config/database';
+// src/index.ts
+import dotenv from 'dotenv';
+dotenv.config();
 
-// Set timezone
-process.env.TZ = 'Africa/Lagos';
+import app from './app';
 
-//Load configs
-const logger = createLogger('Server');
+const PORT = Number(process.env.PORT) || 8080;
 
-//Server setup
-const PORT = normalizePort(process.env.PORT || 3000);
-const server = http.createServer(app);
-
-server.listen(PORT, async () => {
-  await EnvSchema.parseAsync(process.env).catch((error) => {
-    logger.error({ error }, 'Failed to parse environment variables');
-    process.exit(1);
-  });
-
-  sequelizeConn
-    .authenticate()
-    .then(() => {
-      logger.info(`Server listening on port: ${PORT}`);
-    })
-    .catch((error) => {
-      logger.error({ error }, 'Failed to connect to database');
-      process.exit(1);
-    });
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://0.0.0.0:${PORT}`);
 });
+

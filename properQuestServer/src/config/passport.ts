@@ -7,6 +7,10 @@ import { UserToken } from '../utils'; // your JWT token generator
 import { base2Url } from '../utils/baseUrl';
 
 // GOOGLE STRATEGY
+if (
+  process.env.GOOGLE_CLIENT_ID &&
+  process.env.GOOGLE_CLIENT_SECRET
+)
 passport.use(
   new GoogleStrategy(
     {
@@ -41,6 +45,11 @@ passport.use(
 );
 
 // FACEBOOK STRATEGY
+if (
+  process.env.FB_CLIENT_ID &&
+  process.env.FB_CLIENT_SECRET
+)
+
 passport.use(
   new FacebookStrategy(
     {
@@ -69,6 +78,11 @@ passport.use(
 );
 
 // APPLE STRATEGY
+if (
+  process.env.APPLE_CLIENT_ID &&
+  process.env.APPLE_CLIENT_SECRET
+)
+
 passport.use(
   new AppleStrategy(
     {
